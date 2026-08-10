@@ -41,7 +41,6 @@
 **Constraints:**
 - `PK_Students`: PRIMARY KEY (StudentID)
 - `UQ_StudentEmail`: UNIQUE (Email)
-- `CHK_EnrollmentDate`: CHECK (EnrollmentDate <= CURRENT_DATE)
 - `FK_Students_Groups`: FOREIGN KEY (GroupID) REFERENCES Groups(GroupID)
 
 ---
@@ -63,7 +62,6 @@
 **Constraints:**
 - `PK_Professors`: PRIMARY KEY (ProfessorID)
 - `UQ_ProfessorEmail`: UNIQUE (Email)
-- `CHK_HireDate`: CHECK (HireDate <= CURRENT_DATE)
 
 ---
 
@@ -81,7 +79,6 @@
 **Constraints:**
 - `PK_Groups`: PRIMARY KEY (GroupID)
 - `UQ_GroupName`: UNIQUE (GroupName)
-- `CHK_Year`: CHECK (Year >= 1 AND Year <= 6)
 
 ---
 
@@ -96,7 +93,7 @@
 
 **Constraints:**
 - `PK_Subjects`: PRIMARY KEY (SubjectID)
-- `UQ_SubjectName`: UNIQUE (SubjectName)  *(добавлено ограничение)*
+- `UQ_SubjectName`: UNIQUE (SubjectName)
 
 ---
 
@@ -109,7 +106,7 @@
 - `SubjectID`: INTEGER, FK (REFERENCES Subjects), NOT NULL
 - `ProfessorID`: INTEGER, FK (REFERENCES Professors), NOT NULL
 - `GroupID`: INTEGER, FK (REFERENCES Groups), NOT NULL
-- `DayOfWeek`: VARCHAR(20), NOT NULL
+- `DayOfWeek`: SMALLINT, NOT NULL, CHECK (DayOfWeek BETWEEN 1 AND 7)
 - `StartTime`: TIME, NOT NULL
 - `EndTime`: TIME, NOT NULL
 - `Room`: VARCHAR(10), NOT NULL
@@ -120,7 +117,7 @@
 - `FK_Schedule_Professors`: FOREIGN KEY (ProfessorID) REFERENCES Professors(ProfessorID)
 - `FK_Schedule_Groups`: FOREIGN KEY (GroupID) REFERENCES Groups(GroupID)
 - `CHK_Time`: CHECK (StartTime < EndTime)
-- `UQ_RoomTime`: UNIQUE (Room, DayOfWeek, StartTime)
+- `EXCLUDE USING gist (Room WITH =, DayOfWeek WITH =, tsrange(StartTime, EndTime) WITH &&)`
 
 ---
 
@@ -133,7 +130,7 @@
 - `StudentID`: INTEGER, FK (REFERENCES Students), NOT NULL
 - `SubjectID`: INTEGER, FK (REFERENCES Subjects), NOT NULL
 - `EnrollmentDate`: DATE, NOT NULL, DEFAULT CURRENT_DATE
-- `Grade`: INTEGER, CHECK (Grade BETWEEN 1 AND 10) – NULL допустимо
+- `Grade`: INTEGER, CHECK (Grade BETWEEN 1 AND 10)
 
 **Constraints:**
 - `PK_Grades`: PRIMARY KEY (GradeID)
