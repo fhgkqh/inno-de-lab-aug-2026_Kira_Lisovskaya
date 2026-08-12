@@ -1,0 +1,4 @@
+-- Задача 1.2 Заказы со стоимостью больше 1000
+SELECT order_id, item, amount, customer_id
+FROM orders
+WHERE amount > 1000
