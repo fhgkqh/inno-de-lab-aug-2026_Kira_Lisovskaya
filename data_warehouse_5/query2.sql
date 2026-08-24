@@ -6,7 +6,7 @@ SELECT
     -- семестр
     dt.Semester,
     -- средняя оценка
-    ROUND(AVG(fsg.Grade), 2) AS AvgGrade,
+    ROUND(AVG(fsg.Grade), 2) AS AvgGrade
     -- процент сдавших
     ROUND(COUNT(CASE WHEN fsg.IsPassed = TRUE THEN 1 END) * 100.0 / COUNT(*), 1) AS PassRate,
 FROM FactStudentGrades AS fsg
