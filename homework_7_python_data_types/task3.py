@@ -10,9 +10,9 @@ db_config = {
 # Извлекаем вложенный словарь
 conn = db_config["connection"]
 
-# Извлекаем значения host и port
-host = conn["host"]
-port = conn["port"]
+# Извлекаем значения host и port, используя .get с дефолтными значениями
+host = conn.get("host", "localhost")
+port = conn.get("port", 5432)
 
 # Проверяем налиичие ключа ssl_settings и его параметра ssl_mode
 # если не ssl_mode, то переменная примет дефолтное значение
