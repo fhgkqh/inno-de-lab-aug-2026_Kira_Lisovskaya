@@ -25,6 +25,7 @@ def calculate_overdue_fine(days_overdue: Any, fine_rate: float) -> Optional[Tupl
         numeric_days = float(days_overdue)
         total_fine = numeric_days * fine_rate
         return_index = DEFAULT_RETURN_INDEX_BASE / numeric_days
+        print(f"Итоговый штраф: {total_fine}$ | Индекс: {return_index}")  # теперь print здесь
         return total_fine, return_index
     except TypeError as e:
         print(f"[ОШИБКА ТИПА] Невозможно преобразовать дни в число: {e}")
@@ -43,9 +44,7 @@ print("=== ПРОВЕРКА ВОЗВРАТОВ ===")
 
 # Успешный расчёт
 print("\nФильм: 'Matrix' |", end=" ")
-result = calculate_overdue_fine(5, 1.5)
-if result:
-    print(f"Итоговый штраф: {result[0]}$ | Индекс: {result[1]}")
+calculate_overdue_fine(5, 1.5)
 
 # ValueError
 print("\nФильм: 'Inception' |", end=" ")
