@@ -6,7 +6,7 @@ filtered = [
     amount                             # переменная для суммы транзакциии
     for t in raw_transactions          # перебираем все транзакции
     if t.startswith("SUCCESS:")        # оставляем только те, которые начинаются на SUCCESS:
-    and (amount := int(parts[1])) > 0  # проверка что сумма больше нуля
+    and (amount := int(t.split(':')[1])) > 0  # проверка что сумма больше нуля
 ]
 
 # Вывод результата
