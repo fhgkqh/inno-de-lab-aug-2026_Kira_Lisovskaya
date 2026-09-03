@@ -5,10 +5,8 @@ class HardworkingTrainee(Trainee):
     За домашнее задание получает 2 балла вместо 1
     """
 
-    def do_homework(self):
-        """
-        Переопределяет родительский метод: прибавляет 2 балла за ДЗ
-        """
+    def do_homework(self) -> None:
+        """Increase score by 2"""
         self.score += 2
 
 class AuditTrainee(Trainee):
@@ -16,10 +14,8 @@ class AuditTrainee(Trainee):
     Всегда считается прошедшим курс, даже с нулём баллов
     """
 
-    def is_passing(self):
-        """
-        Переопределяет родительский метод: всегда возвращает True
-        """
+    def is_passing(self) -> bool:
+        """Переопределяет родительский метод: всегда возвращает True"""
         return True
 
 class Cohort:
@@ -27,7 +23,7 @@ class Cohort:
     Хранит список учащихся и может проводить лекции.
     """
 
-    def __init__(self, title: str, trainees=None):
+    def __init__(self, title: str, trainees=None) -> None:
         """
         Создаёт группу с названием и списком учащихся.
         Если список не передан, создаётся новый пустой список
@@ -40,20 +36,20 @@ class Cohort:
         else:
             self.trainees = trainees
 
-    def add_trainee(self, trainee):
+    def add_trainee(self, trainee: Trainee):
         """
         Добавляет одного учащегося в группу
         """
         self.trainees.append(trainee)
 
-    def conduct_lecture(self):
+    def conduct_lecture(self) -> None:
         """
         Вызывает метод visit_lecture() у каждого учащегося в группах
         """
         for student in self.trainees:
             student.visit_lecture()
 
-    def get_passing_students(self):
+    def get_passing_students(self) -> list[Trainee]:
         """
         Возвращает список учащихся, которые прошли курс
         """
